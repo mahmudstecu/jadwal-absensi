@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jadwal & Absensi Kelas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+    color: white;
+    text-align: center;
+    padding: 25px;
+  }
+  .header img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid white; margin-bottom: 10px; }
+  .header h1 { font-size: 24px; }
+  .header p { font-size: 14px; opacity: 0.9; }
+
+  .info-kelas {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: #f0f9ff;
+    text-align: center;
+  }
+  .info-kelas h4 { color: #185a9d; font-size: 12px; }
+  .info-kelas p { font-weight: 700; }
+
+  .content { padding: 25px; }
+  .judul { text-align: center; color: #185a9d; margin-bottom: 20px; font-size: 20px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th {
+    background: #43cea2;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+  }
+  td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+  }
+  tr:hover { background: #f0f9ff; }
+
+  .mapel { font-weight: 600; color: #185a9d; }
+  
+  /* Checkbox Absensi */
+  .absen { display: flex; justify-content: center; gap: 8px; }
+  .absen label { 
+    cursor: pointer; 
+    padding: 5px 10px; 
+    border-radius: 8px; 
+    font-size: 11px; 
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  input[type="radio"] { display: none; }
+  input[value="H"]:checked + label { background: #43e97b; color: white; }
+  input[value="I"]:checked + label { background: #feca57; color: white; }
+  input[value="A"]:checked + label { background: #ff6b6b; color: white; }
+  label.H { background: #e8f5e9; color: #2e7d32; }
+  label.I { background: #fff8e1; color: #f57c00; }
+  label.A { background: #ffebee; color: #c62828; }
+
+  .btn-simpan {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn-simpan:hover { transform: scale(1.02); }
+
+  .footer { text-align: center; padding: 15px; background: #f0f9ff; color: #666; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <img src="https://i.pravatar.cc/100?img=5" alt="Logo">
+    <h1>JADWAL & ABSENSI KELAS</h1>
+    <p>Catat Kehadiran Setiap Hari</p>
+  </div>
+
+  <div class="info-kelas">
+    <div>
+      <h4>WALI KELAS</h4>
+      <p>Bu Siti Nurhaliza</p>
+    </div>
+    <div>
+      <h4>KELAS</h4>
+      <p>X IPA 3</p>
+    </div>
+    <div>
+      <h4>TANGGAL</h4>
+      <p id="tanggal"></p>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2 class="judul">📋 JADWAL PELAJARAN & ABSENSI</h2>
+    <form id="formAbsen">
+      <table>
+        <tr>
+          <th>Hari</th>
+          <th>Jam</th>
+          <th>Mata Pelajaran</th>
+          <th>Guru</th>
+          <th>Kehadiran</th>
+        </tr>
+        <tr>
+          <td><b>Senin</b></td>
+          <td>07:00 - 08:30</td>
+          <td class="mapel">Matematika</td>
+          <td>Bu Sari</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="senin1" value="H" id="s1h"><label for="s1h" class="H">Hadir</label>
+              <input type="radio" name="senin1" value="I" id="s1i"><label for="s1i" class="I">Izin</label>
+              <input type="radio" name="senin1" value="A" id="s1a"><label for="s1a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Senin</b></td>
+          <td>08:30 - 10:00</td>
+          <td class="mapel">Bahasa Indonesia</td>
+          <td>Pak Doni</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="senin2" value="H" id="s2h"><label for="s2h" class="H">Hadir</label>
+              <input type="radio" name="senin2" value="I" id="s2i"><label for="s2i" class="I">Izin</label>
+              <input type="radio" name="senin2" value="A" id="s2a"><label for="s2a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Selasa</b></td>
+          <td>07:00 - 08:30</td>
+          <td class="mapel">Fisika</td>
+          <td>Pak Rudi</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="selasa1" value="H" id="sl1h"><label for="sl1h" class="H">Hadir</label>
+              <input type="radio" name="selasa1" value="I" id="sl1i"><label for="sl1i" class="I">Izin</label>
+              <input type="radio" name="selasa1" value="A" id="sl1a"><label for="sl1a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Rabu</b></td>
+          <td>07:00 - 09:00</td>
+          <td class="mapel">Sejarah</td>
+          <td>Bu Maya</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="rabu1" value="H" id="r1h"><label for="r1h" class="H">Hadir</label>
+              <input type="radio" name="rabu1" value="I" id="r1i"><label for="r1i" class="I">Izin</label>
+              <input type="radio" name="rabu1" value="A" id="r1a"><label for="r1a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Kamis</b></td>
+          <td>07:00 - 08:30</td>
+          <td class="mapel">Bahasa Inggris</td>
+          <td>Miss Lala</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="kamis1" value="H" id="k1h"><label for="k1h" class="H">Hadir</label>
+              <input type="radio" name="kamis1" value="I" id="k1i"><label for="k1i" class="I">Izin</label>
+              <input type="radio" name="kamis1" value="A" id="k1a"><label for="k1a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Jumat</b></td>
+          <td>07:00 - 09:00</td>
+          <td class="mapel">PJOK</td>
+          <td>Pak Andi</td>
+          <td>
+            <div class="absen">
+              <input type="radio" name="jumat1" value="H" id="j1h"><label for="j1h" class="H">Hadir</label>
+              <input type="radio" name="jumat1" value="I" id="j1i"><label for="j1i" class="I">Izin</label>
+              <input type="radio" name="jumat1" value="A" id="j1a"><label for="j1a" class="A">Alpha</label>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <button type="button" class="btn-simpan" onclick="simpanAbsen()">💾 Simpan Absensi</button>
+    </form>
+  </div>
+
+  <div class="footer">
+    © 2026 | Sistem Absensi Digital | Semangat Belajar!
+  </div>
+</div>
+
+<script>
+  // Otomatis isi tanggal hari ini
+  const today = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('tanggal').innerText = today;
+
+  function simpanAbsen() {
+    alert("✅ Data absensi berhasil disimpan!\n\nCatatan: Ini baru di browser. Kalau mau disimpan ke database butuh PHP/MySQL.");
+  }
+</script>
+
+</body>
+</html>
